@@ -21,11 +21,15 @@ data class Meta(
 @Parcelize
 data class SearchImage(
     var collection: String,
-    var thumbnail_url: String,
-    var image_url: String,
+    @SerializedName("thumbnail_url")
+    var thumbnailUrl: String,
+    @SerializedName("image_url")
+    var imageUrl: String,
     var width: Int,
     var height: Int,
-    var display_sitename: String,
-    var doc_url: String,
+    @SerializedName("display_sitename")
+    var displaySitename: String,
+    @SerializedName("doc_url")
+    var docUrl: String,
     var datetime: String
 ) : Parcelable
