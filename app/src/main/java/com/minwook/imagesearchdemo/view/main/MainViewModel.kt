@@ -42,7 +42,7 @@ class MainViewModel @Inject constructor(
             .subscribe({
                 _searchList.value = it
             }, {
-                Log.e("search", "loadSearchList error : ${it.localizedMessage}")
+                _error.value = it.localizedMessage
             })
             .addTo(compositeDisposable)
     }

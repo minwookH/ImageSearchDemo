@@ -1,5 +1,6 @@
 package com.minwook.imagesearchdemo.di
 
+import com.minwook.imagesearchdemo.constants.Constants
 import com.minwook.imagesearchdemo.network.ServerAPI
 import dagger.Module
 import dagger.Provides
@@ -19,7 +20,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://dapi.kakao.com")
+            .baseUrl(Constants.KAKAO_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)
@@ -38,7 +39,7 @@ object NetworkModule {
         return OkHttpClient.Builder()
             .addInterceptor {
                 val build = it.request().newBuilder()
-                    .addHeader("Authorization", "KakaoAK 35224178203dcff2e87b7a937c8c33ae")
+                    .addHeader("Authorization", "KakaoAK ${Constants.KAKAO_API_KEY}")
                     .url(it.request().url())
                     .build()
 

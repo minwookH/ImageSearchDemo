@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.rxjava2.flowable
+import com.minwook.imagesearchdemo.constants.Constants
 import com.minwook.imagesearchdemo.data.SearchImage
 import com.minwook.imagesearchdemo.network.ServerAPI
 import com.minwook.imagesearchdemo.paging.ImageSearchPagingSource
@@ -19,8 +20,8 @@ class SearchRepositoryImpl @Inject constructor (private val serverAPI: ServerAPI
 
         return Pager(
             config = PagingConfig(
-                pageSize = 1,
-                initialLoadSize = 30),
+                pageSize = page,
+                initialLoadSize = Constants.PAGE_SIZE),
             pagingSourceFactory = { searchDataSource }
         ).flowable
     }

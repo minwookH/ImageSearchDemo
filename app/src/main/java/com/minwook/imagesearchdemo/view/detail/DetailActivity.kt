@@ -36,14 +36,9 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        if (intent.hasExtra(EXTRA_DATA)) {
-            intent.getParcelableExtra<SearchImage>(EXTRA_DATA)
-        }
-
         binding.apply {
             if (intent.hasExtra(EXTRA_DATA)) {
-                val data = intent.getParcelableExtra<SearchImage>(EXTRA_DATA)
-                searchImage = data
+                searchImage = intent.getParcelableExtra<SearchImage>(EXTRA_DATA)
             }
         }
     }
