@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 data class ImageSearchResponse(
     var meta: Meta,
-    var documents: ArrayList<SearchImage>
+    var documents: List<SearchImage>
 )
 
 data class Meta(

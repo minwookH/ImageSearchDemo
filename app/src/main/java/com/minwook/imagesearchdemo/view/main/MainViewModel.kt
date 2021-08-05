@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.PagingData
+import com.minwook.imagesearchdemo.data.ImageSearchResponse
 import com.minwook.imagesearchdemo.data.SearchImage
 import com.minwook.imagesearchdemo.repository.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,8 +20,8 @@ class MainViewModel @Inject constructor(
     private val searchRepository: SearchRepository
 ) : ViewModel() {
 
-    private val _searchList = MutableLiveData<ArrayList<SearchImage>>()
-    val searchList: LiveData<ArrayList<SearchImage>>
+    private val _searchList = MutableLiveData<PagingData<SearchImage>>()
+    val searchList: LiveData<PagingData<SearchImage>>
         get() = _searchList
 
     private val _error = MutableLiveData<String>()
@@ -28,7 +30,7 @@ class MainViewModel @Inject constructor(
 
     private val compositeDisposable = CompositeDisposable()
 
-    fun loadImageSearchList(text: String, page: Int = 1) {
+    fun loadImageSearchList(text: String) {
         /*compositeDisposable.add(
             searchRepository.getImageSearchResult(text, page)
                 .subscribeOn(Schedulers.io())
@@ -43,17 +45,23 @@ class MainViewModel @Inject constructor(
         )*/
 
         Log.d("testest", "loadImageSearchList : $text")
-        searchRepository.getImageSearchResult(text, page)
+        /*val imageSearchResult = searchRepository.getImageSearchResult(text)
+        _searchList.postValue(imageSearchResult.value)*/
+        searchRepository.getImageSearchResult(text)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                /*PagingData.from()
 
                 Log.d("testest", "loadImageSearchList result : ${it.documents.isEmpty()}")
                 if (it.documents.isEmpty()) {
 
                 } else {
                     _searchList.postValue(it.documents)
-                }
+                }*/
+
+                Log.d("testest", "loadImageSearchList 111 : ${it}")
+                _searchList.postValue(it)
             }, {
                 Log.e("search", "loadSearchList error : ${it.localizedMessage}")
             })

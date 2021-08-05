@@ -2,36 +2,35 @@ package com.minwook.imagesearchdemo.view.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.minwook.imagesearchdemo.data.SearchImage
 import com.minwook.imagesearchdemo.databinding.ListItemImageBinding
 
-class SearchListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    private var seartchItemlist: ArrayList<SearchImage> = arrayListOf()
+class SearchListAdapter : PagingDataAdapter<SearchImage, SearchListAdapter.SearchViewHolder>(itemDiff) {
 
     var onClickItem: ((SearchImage) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val bind = ListItemImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SearchViewHolder(bind).apply {
             onClick = { data -> onClickItem?.invoke(data) }
         }
     }
 
-    override fun getItemCount(): Int = seartchItemlist.size
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as SearchViewHolder).bind(seartchItemlist[position])
+    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
+        getItem(position)?.let {
+            holder.bind(it)
+        }
     }
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    fun setSearchList(searchList: ArrayList<SearchImage>) {
-        seartchItemlist.addAll(searchList)
-        notifyDataSetChanged()
+    override fun getItemViewType(position: Int): Int {
+        return if (position == itemCount) {
+            3
+        } else {
+            1
+        }
     }
 
     inner class SearchViewHolder(private var bind: ListItemImageBinding) : RecyclerView.ViewHolder(bind.root) {
@@ -44,5 +43,15 @@ class SearchListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 onClick?.invoke(data)
             }
         }
+    }
+}
+
+val itemDiff = object : DiffUtil.ItemCallback<SearchImage>() {
+    override fun areItemsTheSame(oldItem: SearchImage, newItem: SearchImage): Boolean {
+        return oldItem.thumbnailUrl == newItem.thumbnailUrl
+    }
+
+    override fun areContentsTheSame(oldItem: SearchImage, newItem: SearchImage): Boolean {
+        return oldItem == newItem
     }
 }
