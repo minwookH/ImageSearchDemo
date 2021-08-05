@@ -1,6 +1,5 @@
 package com.minwook.imagesearchdemo.paging
 
-import android.util.Log
 import androidx.paging.PagingState
 import androidx.paging.rxjava2.RxPagingSource
 import com.minwook.imagesearchdemo.data.ImageSearchResponse

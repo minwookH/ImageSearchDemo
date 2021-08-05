@@ -11,7 +11,7 @@ import com.minwook.imagesearchdemo.paging.ImageSearchPagingSource
 import io.reactivex.Flowable
 import javax.inject.Inject
 
-class SearchRepositoryImpl @Inject constructor (private val serverAPI: ServerAPI): SearchRepository {
+class SearchRepositoryImpl @Inject constructor (private val serverAPI: ServerAPI) : SearchRepository {
     override fun getImageSearchResult(query: String, page: Int): Flowable<PagingData<SearchImage>> {
         val searchDataSource = ImageSearchPagingSource(
             serverAPI,
@@ -21,7 +21,8 @@ class SearchRepositoryImpl @Inject constructor (private val serverAPI: ServerAPI
         return Pager(
             config = PagingConfig(
                 pageSize = page,
-                initialLoadSize = Constants.PAGE_SIZE),
+                initialLoadSize = Constants.PAGE_SIZE
+            ),
             pagingSourceFactory = { searchDataSource }
         ).flowable
     }

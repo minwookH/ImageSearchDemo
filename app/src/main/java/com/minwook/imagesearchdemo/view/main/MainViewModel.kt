@@ -1,10 +1,11 @@
 package com.minwook.imagesearchdemo.view.main
 
-import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.rxjava2.cachedIn
-import com.minwook.imagesearchdemo.data.ImageSearchResponse
 import com.minwook.imagesearchdemo.data.SearchImage
 import com.minwook.imagesearchdemo.repository.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,11 +40,14 @@ class MainViewModel @Inject constructor(
             .cachedIn(viewModelScope)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                _searchList.value = it
-            }, {
-                _error.value = it.localizedMessage
-            })
+            .subscribe(
+                {
+                    _searchList.value = it
+                },
+                {
+                    _error.value = it.localizedMessage
+                }
+            )
             .addTo(compositeDisposable)
     }
 }

@@ -78,13 +78,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObserve() {
-        mainViewModel.searchList.observe(this, {
-            searchListAdapter.submitData(lifecycle, it)
-        })
+        mainViewModel.searchList.observe(
+            this,
+            {
+                searchListAdapter.submitData(lifecycle, it)
+            }
+        )
 
-        mainViewModel.error.observe(this, {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-        })
+        mainViewModel.error.observe(
+            this,
+            {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        )
     }
 
     private fun moveDetailActivity(data: SearchImage) {

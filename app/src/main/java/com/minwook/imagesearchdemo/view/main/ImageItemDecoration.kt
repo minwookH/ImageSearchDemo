@@ -1,7 +1,6 @@
 package com.minwook.imagesearchdemo.view.main
 
 import android.graphics.Rect
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +12,7 @@ class ImageItemDecoration(private val paddingSize: Int) : RecyclerView.ItemDecor
 
         val position = parent.getChildLayoutPosition(view)
 
-        //상하 설정
+        // 상하 설정
         if (position == 0 || position == 1 || position == 2) {
             // 첫번 째 줄 아이템
             outRect.top = paddingSize
@@ -29,17 +28,17 @@ class ImageItemDecoration(private val paddingSize: Int) : RecyclerView.ItemDecor
 
         when (spanIndex) {
             0 -> {
-                //왼쪽 아이템
+                // 왼쪽 아이템
                 outRect.left = paddingSize
                 outRect.right = paddingSize / 2
             }
             1 -> {
-                //오른쪽 아이템
+                // 오른쪽 아이템
                 outRect.left = paddingSize / 2
                 outRect.right = paddingSize / 2
             }
             else -> {
-                //오른쪽 아이템
+                // 오른쪽 아이템
                 outRect.left = paddingSize / 2
                 outRect.right = paddingSize
             }
