@@ -11,7 +11,6 @@ class ImageItemDecoration(private val paddingSize: Int) : RecyclerView.ItemDecor
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
 
-        val index = (view.layoutParams as GridLayoutManager.LayoutParams).spanIndex
         val position = parent.getChildLayoutPosition(view)
 
         //상하 설정
@@ -28,19 +27,22 @@ class ImageItemDecoration(private val paddingSize: Int) : RecyclerView.ItemDecor
         val layoutParam = view.layoutParams as GridLayoutManager.LayoutParams
         val spanIndex = layoutParam.spanIndex
 
-        Log.d("testtest", "position : $position , spanIndex : $spanIndex")
-        if (spanIndex == 0) {
-            //왼쪽 아이템
-            outRect.left = paddingSize
-            outRect.right = paddingSize / 2
-        } else if (spanIndex == 1) {
-            //오른쪽 아이템
-            outRect.left = paddingSize / 2
-            outRect.right = paddingSize / 2
-        } else {
-            //오른쪽 아이템
-            outRect.left = paddingSize / 2
-            outRect.right = paddingSize
+        when (spanIndex) {
+            0 -> {
+                //왼쪽 아이템
+                outRect.left = paddingSize
+                outRect.right = paddingSize / 2
+            }
+            1 -> {
+                //오른쪽 아이템
+                outRect.left = paddingSize / 2
+                outRect.right = paddingSize / 2
+            }
+            else -> {
+                //오른쪽 아이템
+                outRect.left = paddingSize / 2
+                outRect.right = paddingSize
+            }
         }
     }
 }

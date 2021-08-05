@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.minwook.imagesearchdemo.databinding.ItemGridLoadStateBinding
+import com.minwook.imagesearchdemo.databinding.ListItemImageLoadStateBinding
 import com.minwook.imagesearchdemo.util.gone
 import com.minwook.imagesearchdemo.util.visible
 
@@ -13,7 +13,7 @@ class SearchStateAdapter(private val retry: () -> Unit) : LoadStateAdapter<LoadS
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadStateViewHolder {
         return LoadStateViewHolder(
-            ItemGridLoadStateBinding.inflate(
+            ListItemImageLoadStateBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -26,7 +26,7 @@ class SearchStateAdapter(private val retry: () -> Unit) : LoadStateAdapter<LoadS
     }
 }
 
-class LoadStateViewHolder(private val bind: ItemGridLoadStateBinding) : RecyclerView.ViewHolder(bind.root) {
+class LoadStateViewHolder(private val bind: ListItemImageLoadStateBinding) : RecyclerView.ViewHolder(bind.root) {
 
     fun bind(loadState: LoadState, retry: () -> Unit) {
         with(bind) {
