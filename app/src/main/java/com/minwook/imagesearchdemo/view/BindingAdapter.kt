@@ -9,8 +9,8 @@ import org.joda.time.DateTime
 object BindingAdapter {
 
     @JvmStatic
-    @BindingAdapter("bindLoadListImageUrl")
-    fun bindLoadListImageUrl(view: ImageView, url: String) {
+    @BindingAdapter("LoadImageUrl")
+    fun bindLoadImageUrl(view: ImageView, url: String) {
         Glide.with(view.context)
             .load(url)
             .fitCenter()
@@ -20,13 +20,11 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("dateTime")
     fun bindDateTime(view: TextView, date: String) {
-        view.text = DateTime(date).toString("yyyy년 MM월 dd일")
-    }
-
-    @JvmStatic
-    @BindingAdapter("dateTimeHHmm")
-    fun bindDateTimeHHmm(view: TextView, date: String) {
-        view.text = DateTime(date).toString("yyyy년 MM월 dd일 aa hh시 mm분")
+        view.text = if (date.isNotEmpty()) {
+            DateTime(date).toString("yyyy-MM-dd")
+        } else {
+            ""
+        }
     }
 
 }

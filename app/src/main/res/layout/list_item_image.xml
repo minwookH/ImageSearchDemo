@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="searchImage"
             type="com.minwook.imagesearchdemo.data.SearchImage" />
@@ -23,7 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:bindLoadListImageUrl="@{searchImage.thumbnailUrl}"/>
+            app:LoadImageUrl="@{searchImage.thumbnailUrl}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

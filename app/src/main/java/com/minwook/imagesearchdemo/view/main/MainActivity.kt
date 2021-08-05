@@ -1,16 +1,20 @@
 package com.minwook.imagesearchdemo.view.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.jakewharton.rxbinding4.widget.textChanges
+import com.minwook.imagesearchdemo.data.SearchImage
 import com.minwook.imagesearchdemo.databinding.ActivityMainBinding
 import com.minwook.imagesearchdemo.util.ViewUtils
 import com.minwook.imagesearchdemo.util.gone
 import com.minwook.imagesearchdemo.util.hideKeyboard
 import com.minwook.imagesearchdemo.util.visible
+import com.minwook.imagesearchdemo.view.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
@@ -46,7 +50,11 @@ class MainActivity : AppCompatActivity() {
                     mainViewModel.loadImageSearchList(it.toString())
                 }
 
-            searchListAdapter = SearchListAdapter()
+            searchListAdapter = SearchListAdapter().apply {
+                onClickItem = {
+                    moveDetailActivity(it)
+                }
+            }
             searchListAdapter.addLoadStateListener { loadState ->
                 if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && searchListAdapter.itemCount < 1) {
                     rvImageList.gone()
@@ -77,5 +85,12 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.error.observe(this, {
         })
+    }
+
+    private fun moveDetailActivity(data: SearchImage) {
+        Intent(this, DetailActivity::class.java).apply {
+            putExtra(DetailActivity.EXTRA_DATA, data)
+            startActivity(this)
+        }
     }
 }
