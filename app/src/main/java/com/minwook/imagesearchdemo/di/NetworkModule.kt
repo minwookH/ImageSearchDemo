@@ -39,7 +39,6 @@ object NetworkModule {
             .addInterceptor {
                 val build = it.request().newBuilder()
                     .addHeader("Authorization", "KakaoAK 35224178203dcff2e87b7a937c8c33ae")
-                    // Feel free to add any other headers
                     .url(it.request().url())
                     .build()
 
